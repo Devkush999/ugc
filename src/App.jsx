@@ -1,107 +1,126 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Home from "./Component/Home";
-import About from "./Component/About";
-import Genesis from "./ComponentsAbout/Genesis";
-import Mandate from "./ComponentsAbout/Mandate";
-import UGCAct from "./ComponentsAbout/UGCAct";
-import Logo from "./ComponentsAbout/Logo";
-import Organisational from "./ComponentsAbout/Organisational";
-import Bureaus from "./ComponentsAbout/Bureaus";
-import Offices from "./ComponentsAbout/Offices";
-import University from "./ComponentsAbout/University";
-import Facilities from "./ComponentsAbout/Facilities";
-import SecurityAudit from "./ComponentsAbout/SecurityAudit";
-import Organization from "./Component/Organization";
-import KeyInitiatives from "./Component/KeyInitiatives";
-import Guidelines from "./Component/Guidelines";
-import Regulations from "./Component/Regulations";
-import HEIs from "./Component/HEIs";
-import FHEIList from "./Component/FHEIList";
-import Publications from "./Component/Publications";
-import { FaHome } from "react-icons/fa";
-import { FaInfoCircle } from "react-icons/fa";
-// import { TiCalculator } from "react-icons/ti";
-import { FaPencilAlt } from "react-icons/fa";
-import { FaThList } from "react-icons/fa";
-import { BsBank2 } from "react-icons/bs";
-// import { GiNotebook } from "react-icons/gi";
-// import { FaCaretDown } from "react-icons/fa";
+
+
+const Home = lazy(() => import("./Component/Home"));
+const About = lazy(() => import("./Component/About"));
+
+const Genesis = lazy(() => import("./ComponentsAbout/Genesis"));
+const Mandate = lazy(() => import("./ComponentsAbout/Mandate"));
+const UGCAct = lazy(() => import("./ComponentsAbout/UGCAct"));
+const Logo = lazy(() => import("./ComponentsAbout/Logo"));
+const Organisational = lazy(() => import("./ComponentsAbout/Organisational"));
+const Bureaus = lazy(() => import("./ComponentsAbout/Bureaus"));
+const Offices = lazy(() => import("./ComponentsAbout/Offices"));
+const University = lazy(() => import("./ComponentsAbout/University"));
+const Facilities = lazy(() => import("./ComponentsAbout/Facilities"));
+const SecurityAudit = lazy(() => import("./ComponentsAbout/SecurityAudit"));
+
+const Organization = lazy(() => import("./Component/Organization"));
+const KeyInitiatives = lazy(() => import("./Component/KeyInitiatives"));
+const Guidelines = lazy(() => import("./Component/Guidelines"));
+const Regulations = lazy(() => import("./Component/Regulations"));
+const HEIs = lazy(() => import("./Component/HEIs"));
+const FHEIList = lazy(() => import("./Component/FHEIList"));
+const Publications = lazy(() => import("./Component/Publications"));
+
+
 import Header from "./Component/Header";
 import LogoHeader from "./Component/LogoHeader";
 import Footer from "./Component/Footer";
-// import { FaLongArrowAltRight } from "react-icons/fa";
+
+
+import { FaHome, FaInfoCircle, FaPencilAlt, FaThList } from "react-icons/fa";
+import { BsBank2 } from "react-icons/bs";
 
 function App() {
   return (
     <>
-      <div>
-        <Header />
-        <LogoHeader />
-        <BrowserRouter>
-          <div className="w-100% bg-[#ff6c3a] text-white p-0.5 items-center font-bold flex justify-center">
-            <ul className="flex flex-wrap">
-              <Link to="/">
-                <li className="p-3 flex items-center gap-1 hover:bg-white hover:text-[#ff6c3a]">
-                  <FaHome />
-                  Home
-                </li>
-              </Link>
-              <About/>
-              <Organization/>
-              <Link to="/keyInitiative">
-                <li className="p-3 hover:bg-white hover:text-[#ff6c3a] flex items-center gap-1">
-                  <FaPencilAlt />
-                  KeyInitiative
-                </li>
-              </Link>
-              <Link to="/guidelines">
-                <li className="p-3 hover:bg-white hover:text-[#ff6c3a] flex items-center gap-1">
-                  <FaInfoCircle />
-                  Guidelines
-                </li>
-              </Link>
-              <Link to="/regulations">
-                <li className="p-3 hover:bg-white hover:text-[#ff6c3a] flex items-center gap-1">
-                  <FaThList className="text-xs" />
-                  Regulations
-                </li>
-              </Link>
-              <HEIs/>
-              <Link to="/FHEIList">
-                <li className="p-3 hover:bg-white hover:text-[#ff6c3a] flex items-center gap-1">
-                  <BsBank2 />
-                  FHEIList
-                </li>
-              </Link>
-              <Publications/>
-            </ul>
-          </div>
+      <Header />
+      <LogoHeader />
+
+      <BrowserRouter>
+        <div className="w-full bg-[#ff6c3a] text-white p-0.5 font-bold flex justify-center">
+          <ul className="flex flex-wrap">
+            <Link to="/">
+              <li className="p-3 flex items-center gap-1 hover:bg-white hover:text-[#ff6c3a]">
+                <FaHome />
+                Home
+              </li>
+            </Link>
+
+            <About />
+            <Organization />
+
+            <Link to="/keyInitiative">
+              <li className="p-3 flex items-center gap-1 hover:bg-white hover:text-[#ff6c3a]">
+                <FaPencilAlt />
+                KeyInitiative
+              </li>
+            </Link>
+
+            <Link to="/guidelines">
+              <li className="p-3 flex items-center gap-1 hover:bg-white hover:text-[#ff6c3a]">
+                <FaInfoCircle />
+                Guidelines
+              </li>
+            </Link>
+
+            <Link to="/regulations">
+              <li className="p-3 flex items-center gap-1 hover:bg-white hover:text-[#ff6c3a]">
+                <FaThList className="text-xs" />
+                Regulations
+              </li>
+            </Link>
+
+            <HEIs />
+
+            <Link to="/FHEIList">
+              <li className="p-3 flex items-center gap-1 hover:bg-white hover:text-[#ff6c3a]">
+                <BsBank2 />
+                FHEIList
+              </li>
+            </Link>
+
+            <Publications />
+          </ul>
+        </div>
+
+        <Suspense
+          fallback={
+            <div className="text-center p-10 text-xl font-bold">
+              Loading...
+            </div>
+          }
+        >
           <Routes>
-            <Route path="/" element={<Home />}></Route>
-            {/**Drop-Down**/}
-            <Route path="/About/genesis" element={<Genesis/>}></Route>
-            <Route path="/About/mandate" element={<Mandate/>}></Route>
-            <Route path="/About/ugcact" element={<UGCAct/>}></Route>
-            <Route path="/About/logo" element={<Logo/>}></Route>
-            <Route path="/About/organisational" element={<Organisational/>}></Route>
-            <Route path="/About/bureaus" element={<Bureaus/>}></Route>
-            <Route path="/About/offices" element={<Offices/>}></Route>
-            <Route path="/About/university" element={<University/>}></Route>
-            <Route path="/About/facilities" element={<Facilities/>}></Route>
-            <Route path="/About/securityaudit" element={<SecurityAudit/>}></Route>
-            <Route path="/organization" element={<Organization />}></Route>
-            <Route path="/keyInitiative" element={<KeyInitiatives />}></Route>
-            <Route path="/guidelines" element={<Guidelines />}></Route>
-            <Route path="/regulations" element={<Regulations />}></Route>
-            <Route path="/HEIs" element={<HEIs />}></Route>
-            <Route path="/FHEIList" element={<FHEIList />}></Route>
-            <Route path="/publications" element={<Publications />}></Route>
+            <Route path="/" element={<Home />} />
+
+            {/* About Dropdown Routes */}
+            <Route path="/About/genesis" element={<Genesis />} />
+            <Route path="/About/mandate" element={<Mandate />} />
+            <Route path="/About/ugcact" element={<UGCAct />} />
+            <Route path="/About/logo" element={<Logo />} />
+            <Route path="/About/organisational" element={<Organisational />} />
+            <Route path="/About/bureaus" element={<Bureaus />} />
+            <Route path="/About/offices" element={<Offices />} />
+            <Route path="/About/university" element={<University />} />
+            <Route path="/About/facilities" element={<Facilities />} />
+            <Route path="/About/securityaudit" element={<SecurityAudit />} />
+
+            {/* Other Pages */}
+            <Route path="/organization" element={<Organization />} />
+            <Route path="/keyInitiative" element={<KeyInitiatives />} />
+            <Route path="/guidelines" element={<Guidelines />} />
+            <Route path="/regulations" element={<Regulations />} />
+            <Route path="/HEIs" element={<HEIs />} />
+            <Route path="/FHEIList" element={<FHEIList />} />
+            <Route path="/publications" element={<Publications />} />
           </Routes>
-        </BrowserRouter>
-        {/* <About/> */}
-        <Footer />
-      </div>
+        </Suspense>
+      </BrowserRouter>
+
+      <Footer />
     </>
   );
 }
